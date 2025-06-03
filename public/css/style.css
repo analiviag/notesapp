@@ -1,0 +1,38 @@
+/* public/css/style.css */
+
+.note-bg-white {
+  background-color: #ffffff; /* White */
+}
+
+.note-bg-yellow {
+  background-color: #ffdf9f; /* LemonChiffon - a light yellow, good for notes */
+  /* Or: background-color: #ffffcc; /* A common light yellow */
+}
+
+.note-bg-blue {
+  background-color: #a1d8e4; /* LightBlue */
+  /* Or: background-color: #b0e0e6; /* PowderBlue */
+}
+
+.note-bg-green {
+  background-color: #97debf; /* LightGreen */
+  /* Or: background-color: #honeydew; /* A very light green-tinged white */
+}
+
+.note-bg-pink {
+  background-color: #f8babe; /* LightPink */
+  /* Or: background-color: #ffefef; /* A very light pink */
+}
+
+/* Optional: Improve text readability on slightly darker backgrounds */
+/* For example, if your 'blue' or 'green' are darker, you might want lighter text.
+     The light shades above should generally work with default dark text.
+     If you pick a darker blue like 'royalblue', you'd add:
+  */
+/*
+  .note-bg-blue.card .card-title,
+  .note-bg-blue.card .card-text,
+  .note-bg-blue.card .card-text .text-muted {
+    color: #ffffff;
+  }
+  */

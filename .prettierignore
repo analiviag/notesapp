@@ -1,0 +1,3 @@
+# .prettierignore
+src/views/partials/header.ejs
+src/views/partials/footer.ejs

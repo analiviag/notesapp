@@ -1,0 +1,29 @@
+<%- include ('./partials/header', {pageTitle: 'Home'}) %>
+<div class="px-4 py-5 my-5 text-center">
+  <img
+    class="d-block mx-auto mb-4"
+    src="/images/notes-app-icon.svg"
+    alt="Note Taking App Icon"
+    width="120"
+    height="120"
+  />
+  <h1 class="display-5 fw-bold">Note Taking App</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">
+      Welcome! Quickly jot down your thoughts, organize your ideas, and never
+      forget anything important. Built with Node.js, Express, and EJS.
+    </p>
+    <% if(!currentUser) { %>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a href="/login" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+      <a href="/register" class="btn btn-outline-secondary btn-lg px-4"
+        >Register</a
+      >
+    </div>
+    <% } else { %>
+    <a href="/notes" class="btn btn-success btn-lg px-4">View My Notes</a>
+    <% } %>
+  </div>
+</div>
+
+<%- include('./partials/footer') %>

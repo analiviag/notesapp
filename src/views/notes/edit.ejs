@@ -1,0 +1,70 @@
+<%- include('../partials/header', { pageTitle: pageTitle }) %>
+
+<div class="container mt-4">
+  <h2><%= pageTitle %></h2>
+
+  <% /* Display validation errors if any after a failed PUT attempt */ %>
+  <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+
+  <% if (typeof note !== 'undefined' && note) { %>
+    <form action="/notes/<%= note._id %>?_method=PUT" method="POST"> <%# Action points to update route with method override %>
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%= typeof formData !== 'undefined' ? formData.title : note.title %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" id="content" name="content" rows="5" required><%= typeof formData !== 'undefined' ? formData.content : note.content %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="tags" class="form-label">Tags (comma-separated)</label>
+        <% const currentTags = typeof formData !== 'undefined' ? formData.tags : (note.tags ? note.tags.join(', ') : ''); %>
+        <input type="text" class="form-control" id="tags" name="tags" placeholder="e.g., work, personal, urgent" value="<%= currentTags %>">
+        <div class="form-text">Enter tags separated by commas.</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="color" class="form-label">Color</label>
+          <select class="form-select" id="color" name="color">
+            <% const colors = ["white", "yellow", "blue", "green", "pink"]; %>
+            <% const selectedColor = typeof formData !== 'undefined' ? formData.color : note.color; %>
+            <% colors.forEach(color => { %>
+              <option value="<%= color %>" <%= selectedColor === color ? 'selected' : '' %>><%= color.charAt(0).toUpperCase() + color.slice(1) %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-3 align-self-center">
+          <div class="form-check mt-3">
+            <% const isPinnedChecked = typeof formData !== 'undefined' ? formData.isPinned === 'true' || formData.isPinned === true : note.isPinned; %>
+            <input class="form-check-input" type="checkbox" id="isPinned" name="isPinned" value="true" <%= isPinnedChecked ? 'checked' : '' %>>
+            <label class="form-check-label" for="isPinned">
+              Pin this note
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update Note</button>
+      <a href="/notes" class="btn btn-secondary">Cancel</a>
+    </form>
+  <% } else { %>
+    <div class="alert alert-warning" role="alert">
+      Note not found or you do not have permission to edit it.
+    </div>
+    <a href="/notes" class="btn btn-primary">Back to Notes</a>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

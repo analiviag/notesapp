@@ -1,0 +1,60 @@
+<%- include('../partials/header', { pageTitle: pageTitle }) %>
+
+<div class="container mt-4">
+  <h2><%= pageTitle %></h2>
+
+  
+  <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="/notes" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="<%= typeof formData !== 'undefined' ? formData.title : '' %>" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="content" class="form-label">Content</label>
+      <textarea class="form-control" id="content" name="content" rows="5" required><%= typeof formData !== 'undefined' ? formData.content : '' %></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="tags" class="form-label">Tags (comma-separated)</label>
+      <input type="text" class="form-control" id="tags" name="tags" placeholder="e.g., work, personal, urgent" value="<%= typeof formData !== 'undefined' && formData.tags ? (Array.isArray(formData.tags) ? formData.tags.join(', ') : formData.tags) : '' %>">
+      <div class="form-text">Enter tags separated by commas.</div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="color" class="form-label">Color</label>
+        <select class="form-select" id="color" name="color">
+          <% const colors = ["white", "yellow", "blue", "green", "pink"]; %>
+          <% colors.forEach(color => { %>
+            <option value="<%= color %>" <%= typeof formData !== 'undefined' && formData.color === color ? 'selected' : (color === 'white' && typeof formData === 'undefined' ? 'selected' : '') %>><%= color.charAt(0).toUpperCase() + color.slice(1) %></option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="col-md-6 mb-3 align-self-center">
+        <div class="form-check mt-3">
+          <input class="form-check-input" type="checkbox" id="isPinned" name="isPinned" value="true" <%= typeof formData !== 'undefined' && formData.isPinned ? 'checked' : '' %>>
+          <label class="form-check-label" for="isPinned">
+            Pin this note
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Create Note</button>
+    <a href="/notes" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

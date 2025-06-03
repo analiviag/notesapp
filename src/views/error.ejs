@@ -1,0 +1,18 @@
+<%- include('./partials/header', { pageTitle: pageTitle || 'Error' }) %>
+
+<div class="container mt-5">
+  <div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">Oops! Error <%= error.status || 500 %></h4>
+    <p><%= error.message || "Something went wrong on our end." %></p>
+    <hr />
+    <% if (error.stack) { %>
+    <p class="mb-0"><strong>Stack Trace:</strong></p>
+    <pre style="white-space: pre-wrap; word-wrap: break-word">
+<%= error.stack %></pre
+    >
+    <% } %>
+  </div>
+  <a href="/" class="btn btn-primary">Go to Homepage</a>
+</div>
+
+<%- include('./partials/footer') %>
