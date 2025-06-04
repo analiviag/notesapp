@@ -31,6 +31,7 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('trust proxy', 1); //Adding this because I plan to deploy in future
 
 app.use(
+  //Had to update this because had an issue with the css file
   helmet({
     contentSecurityPolicy: {
       directives: {
@@ -102,7 +103,6 @@ app.use('/api', apiRouter);
 app.use('/', webRouter);
 
 // --- GLOBAL ERROR HANDLER ---
-// This must be the last piece of middleware
 app.use((err, req, res, next) => {
   console.error('--GLOBAL ERROR HANDLER CAUGHT--');
   console.error('Message:', err.message);

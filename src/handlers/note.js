@@ -8,7 +8,10 @@ const getAllNotes = async () => {
 //Function to get notes by specific user
 const getNotesByUserId = async (userId) => {
   try {
-    return await Notes.find({ userId: userId }).lean();
+    const notes = await Notes.find({ userId: userId })
+      .sort({ isPinned: -1, updatedAt: -1 })
+      .lean();
+    return notes;
   } catch (error) {
     console.error(`Error fetching notes for user ${userId}`, error);
     throw error;
@@ -69,6 +72,30 @@ const getNoteByIdForUser = async (noteId, userId) => {
   }
 };
 
+// Function to toggle isPinned
+const togglePinStatus = async (noteId, userId) => {
+  try {
+    console.log(userId);
+    const note = await Notes.findOne({ _id: noteId, userId: userId });
+    if (!note) {
+      return null;
+    }
+    note.isPinned = !note.isPinned;
+    note.updatedAt = Date.now();
+    await note.save();
+    return note;
+  } catch (error) {
+    console.error(
+      `Error toggling pin status for note ${noteId}, user ${userId}:`,
+      error
+    );
+    if (error.name === 'CastError' && error.kind === 'ObjectId') {
+      return null;
+    }
+    throw error;
+  }
+};
+
 export default {
   getAllNotes,
   getNotesByUserId,
@@ -76,4 +103,5 @@ export default {
   updateNoteById,
   deleteNoteById,
   getNoteByIdForUser,
+  togglePinStatus,
 };

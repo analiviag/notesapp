@@ -12,7 +12,9 @@
     <div class="col-md-6 col-lg-4 mb-3">
       <% const noteColor = note.color || "white"; %> <% const colorClass =
       `note-bg-${noteColor}`; %>
-      <div class="card h-100 <%= colorClass %>">
+      <div
+        class="card h-100 <%= colorClass %> <%= note.isPinned ? 'note-is-pinned' : '' %>"
+      >
         <div class="card-body">
           <h5 class="card-title"><%= note.title%></h5>
           <p class="card-text">
@@ -47,6 +49,7 @@
             action="/notes/<%=note._id%>/delete"
             method="POST"
             style="display: inline"
+            class="me-2"
           >
             <button
               type="submit"
@@ -56,6 +59,13 @@
               Delete
             </button>
           </form>
+          <button
+            type="button"
+            class="btn btn-sm <%= note.isPinned ? 'btn-info' : 'btn-outline-secondary' %> pin-toggle-btn"
+            data-note-id="<%= note._id%>"
+          >
+            <%= note.isPinned ? 'Unpin' : 'Pin' %>
+          </button>
         </div>
       </div>
     </div>

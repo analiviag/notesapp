@@ -38,3 +38,7 @@
 .note-bg-pink .card-text .text-muted {
   color: #495057;
 }
+
+.card.note-is-pinned {
+  border-left: 5px solid #0dcaf0;
+}
