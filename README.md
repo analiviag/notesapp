@@ -86,3 +86,19 @@ Once the dependencies are installed and the `.env` file is configured, you can s
 ```sh
 npm start
 ```
+
+## 📝 API Endpoints
+
+The application exposes the following RESTful API endpoints under the `/api` route for client-side operations. All protected routes require the user to be authenticated.
+
+| Method   | Endpoint                             | Description                             |
+| :------- | :----------------------------------- | :-------------------------------------- |
+| `GET`    | `/api/notetaking`                    | Get all notes for the logged-in user.   |
+| `POST`   | `/api/notetaking`                    | Create a new note.                      |
+| `PUT`    | `/api/notetaking/:noteId`            | Update an existing note.                |
+| `DELETE` | `/api/notetaking/:noteId`            | Delete a note.                          |
+| `PATCH`  | `/api/notetaking/:noteId/toggle-pin` | Toggle the `isPinned` status of a note. |
+| `POST`   | `/api/register`                      | Register a new user account.            |
+| `POST`   | `/api/login`                         | Log a user in to create a session.      |
+| `POST`   | `/api/logout`                        | Log a user out and destroy the session. |
+| `GET`    | `/api/users/:userId`                 | Get a user's public information by ID.  |
