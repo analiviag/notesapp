@@ -63,3 +63,7 @@ router.patch(
   validateNoteId,
   catchAsync(notesController.toggleNotePinStatus)
 );
+
+//Did this approach to because it's better for React in the future. Did some research on AI to understand the difference between what the Foodtruck app does and what I'm doing here.
+//Separating backend and frontend more in my pov.
+//Foodtruck is server-rendering things (MVC), I'm doing more JSON for client side js.

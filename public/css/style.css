@@ -42,3 +42,10 @@
 .card.note-is-pinned {
   border-left: 5px solid #0dcaf0;
 }
+
+/* This is to make the bottom of the note clickable again (Edit, Delete and Pin)*/
+.card .card-footer .btn,
+.card .card-footer form {
+  position: relative;
+  z-index: 1;
+}

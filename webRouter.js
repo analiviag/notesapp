@@ -113,6 +113,43 @@ webRouter.post(
   })
 );
 
+//Display a note in full
+webRouter.get(
+  '/notes/:id',
+  ensureAuthenticatedForWeb,
+  [param('id').isMongoId().withMessage('Invalid note ID format.')],
+  catchAsync(async (req, res) => {
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      req.flash(
+        'error',
+        validationErrors
+          .array()
+          .map((e) => e.msg)
+          .join('<br>')
+      );
+      return res.redirect('/notes');
+    }
+
+    const noteId = req.params.id;
+    const userId = req.user._id;
+
+    const note = await notesHandler.getNoteByIdForUser(noteId, userId);
+
+    if (!note) {
+      req.flash(
+        'error',
+        'Note not found or you are not authorized to view it.'
+      );
+      return res.redirect('/notes');
+    }
+    res.render('notes/show', {
+      pageTitle: note.title,
+      note: note,
+    });
+  })
+);
+
 webRouter.get(
   '/notes/:id/edit',
   ensureAuthenticatedForWeb,

@@ -16,7 +16,14 @@
         class="card h-100 <%= colorClass %> <%= note.isPinned ? 'note-is-pinned' : '' %>"
       >
         <div class="card-body">
-          <h5 class="card-title"><%= note.title%></h5>
+          <h5 class="card-title">
+            <a
+              href="/notes/<%= note._id %>"
+              class="text-decoration-none stretched-link"
+            >
+              <%= note.title %>
+            </a>
+          </h5>
           <p class="card-text">
             <%= note.content.substring(0, 100) %><% if(note.content.length >
             100) { %>...<%} %>

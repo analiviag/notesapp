@@ -1,99 +1,56 @@
 import Notes from '../models/note.js';
 
-//Function to get all notes
+// Function to get all notes (not currently used by routes)
 const getAllNotes = async () => {
   return await Notes.find().lean();
 };
 
-//Function to get notes by specific user
+// Function to get notes for a specific user
 const getNotesByUserId = async (userId) => {
-  try {
-    const notes = await Notes.find({ userId: userId })
-      .sort({ isPinned: -1, updatedAt: -1 })
-      .lean();
-    return notes;
-  } catch (error) {
-    console.error(`Error fetching notes for user ${userId}`, error);
-    throw error;
-  }
+  return await Notes.find({ userId: userId })
+    .sort({ isPinned: -1, updatedAt: -1 })
+    .lean();
 };
 
-//Function to create a new note
+// Function to create a new note
 const createNote = async (noteData) => {
-  try {
-    const newNote = new Notes(noteData);
-    await newNote.save();
-    return newNote;
-  } catch (error) {
-    console.error('Error creating note', error);
-    throw error;
-  }
+  const newNote = new Notes(noteData);
+  return await newNote.save();
 };
 
-//Function to update note by ID
+// Function to update a note by ID, ensuring user ownership
 const updateNoteById = async (noteId, userId, updateData) => {
-  try {
-    const updateNote = await Notes.findOneAndUpdate(
-      { _id: noteId, userId: userId },
-      updateData,
-      { new: true, runValidators: true }
-    ).lean();
-    return updateNote;
-  } catch (error) {
-    console.error(`Error updating note ${noteId} for user ${userId}`, error);
-    throw error;
-  }
+  return await Notes.findOneAndUpdate(
+    { _id: noteId, userId: userId },
+    updateData,
+    { new: true, runValidators: true }
+  ).lean();
 };
 
-//Function to delete a note by ID
+// Function to delete a note by ID, ensuring user ownership
 const deleteNoteById = async (noteId, userId) => {
-  try {
-    const result = await Notes.findOneAndDelete({
-      _id: noteId,
-      userId: userId,
-    });
-    return result;
-  } catch (error) {
-    console.error(`Error deleting note ${noteId} by user ${userId}.`, error);
-    throw error;
-  }
+  return await Notes.findOneAndDelete({
+    _id: noteId,
+    userId: userId,
+  }).lean();
 };
 
+// Function to get a single note by ID for a specific user
 const getNoteByIdForUser = async (noteId, userId) => {
-  try {
-    const note = await Notes.findOne({ _id: noteId, userId: userId }).lean();
-    return note;
-  } catch (error) {
-    console.error(`Error fetching note ${noteId} for user ${userId}:`, error);
-    if (error.name === 'CastError' && error.kind === 'ObjectId') {
-      return null;
-    }
-    throw error;
-  }
+  return await Notes.findOne({ _id: noteId, userId: userId }).lean();
 };
 
-// Function to toggle isPinned
+// Function to toggle the isPinned status of a note
 const togglePinStatus = async (noteId, userId) => {
-  try {
-    console.log(userId);
-    const note = await Notes.findOne({ _id: noteId, userId: userId });
-    if (!note) {
-      return null;
-    }
-    note.isPinned = !note.isPinned;
-    note.updatedAt = Date.now();
-    await note.save();
-    return note;
-  } catch (error) {
-    console.error(
-      `Error toggling pin status for note ${noteId}, user ${userId}:`,
-      error
-    );
-    if (error.name === 'CastError' && error.kind === 'ObjectId') {
-      return null;
-    }
-    throw error;
+  const note = await Notes.findOne({ _id: noteId, userId: userId });
+
+  if (!note) {
+    return null;
   }
+
+  note.isPinned = !note.isPinned;
+  note.updatedAt = Date.now();
+  return await note.save();
 };
 
 export default {
