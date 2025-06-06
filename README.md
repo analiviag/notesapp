@@ -2,6 +2,8 @@
 
 A full-stack web application designed for creating, managing, and organizing personal notes. Built with Node.js, Express, and MongoDB, this application provides a secure and intuitive interface for users to jot down their thoughts, with features like tagging, color-coding, and pinning important notes.
 
+![notesapp](https://github.com/user-attachments/assets/d3e5b364-3e39-46a2-925b-52563406c0b8)
+
 ## ✨ Key Features
 
 - **User Authentication:** Secure user registration and login system using Passport.js. Users can only access their own notes.
