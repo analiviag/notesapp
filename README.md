@@ -2,10 +2,6 @@
 
 A full-stack web application designed for creating, managing, and organizing personal notes. Built with Node.js, Express, and MongoDB, this application provides a secure and intuitive interface for users to jot down their thoughts, with features like tagging, color-coding, and pinning important notes.
 
-_Add screenshot_
-
-![Note Card Example]()
-
 ## ✨ Key Features
 
 - **User Authentication:** Secure user registration and login system using Passport.js. Users can only access their own notes.
@@ -53,7 +49,7 @@ Follow these instructions to get a local copy of the project up and running.
 1.  **Clone the repository:**
 
     ```sh
-    git clone [https://github.com/analiviag/notesapp.git](https://github.com/analiviag/notesapp.git)
+    git clone https://github.com/analiviag/notesapp.git
     ```
 
 2.  **Navigate to the project directory:**
