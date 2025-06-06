@@ -53,7 +53,7 @@ Follow these instructions to get a local copy of the project up and running.
 1.  **Clone the repository:**
 
     ```sh
-    git clone [https://github.com/analiviag/notesapp.git](https://github.com/analiviag/notesapp.git)
+    git clone https://github.com/analiviag/notesapp.git
     ```
 
 2.  **Navigate to the project directory:**
