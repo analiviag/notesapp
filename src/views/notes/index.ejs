@@ -56,13 +56,9 @@
             action="/notes/<%=note._id%>/delete"
             method="POST"
             style="display: inline"
-            class="me-2"
+            class="me-2 delete-form"
           >
-            <button
-              type="submit"
-              class="btn btn-sm btn-outline-danger"
-              onclick="return confirm('Are you sure you want to delete this note?');"
-            >
+            <button type="submit" class="btn btn-sm btn-outline-danger">
               Delete
             </button>
           </form>

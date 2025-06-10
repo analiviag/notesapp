@@ -36,12 +36,16 @@
         <label for="color" class="form-label">Color</label>
         <select class="form-select" id="color" name="color">
           <% const colors = ["white", "yellow", "blue", "green", "pink"]; %>
+          <% const currentColor = typeof formData !== 'undefined' ? formData.color : 'white'; %>
+    
           <% colors.forEach(color => { %>
-            <option value="<%= color %>" <%= typeof formData !== 'undefined' && formData.color === color ? 'selected' : (color === 'white' && typeof formData === 'undefined' ? 'selected' : '') %>><%= color.charAt(0).toUpperCase() + color.slice(1) %></option>
+            <option value="<%= color %>" <%= currentColor === color ? 'selected' : '' %>>
+              <%= color.charAt(0).toUpperCase() + color.slice(1) %>
+            </option>
           <% }); %>
         </select>
       </div>
-
+    
       <div class="col-md-6 mb-3 align-self-center">
         <div class="form-check mt-3">
           <input class="form-check-input" type="checkbox" id="isPinned" name="isPinned" value="true" <%= typeof formData !== 'undefined' && formData.isPinned ? 'checked' : '' %>>
@@ -58,3 +62,6 @@
 </div>
 
 <%- include('../partials/footer') %>
+
+<%# Sticky form logic here -remember to use this in future %>
+<%# Tried to refactor the code to make it work with Prettier, but it was still complaining so had to add it to prettierignore %>

@@ -41,14 +41,9 @@
         action="/notes/<%=note._id%>/delete"
         method="POST"
         style="display: inline"
+        class="delete-form"
       >
-        <button
-          type="submit"
-          class="btn btn-danger"
-          onclick="return confirm('Are you sure you want to delete this note?');"
-        >
-          Delete
-        </button>
+        <button type="submit" class="btn btn-danger">Delete</button>
       </form>
     </div>
   </div>

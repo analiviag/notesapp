@@ -150,6 +150,7 @@ webRouter.get(
   })
 );
 
+//Edit a note
 webRouter.get(
   '/notes/:id/edit',
   ensureAuthenticatedForWeb,
@@ -269,6 +270,7 @@ webRouter.put(
   })
 );
 
+//Delete note
 webRouter.post(
   '/notes/:id/delete',
   ensureAuthenticatedForWeb,

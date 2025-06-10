@@ -15,7 +15,6 @@ import helmet from 'helmet';
 import { initializePassport } from './src/config/passportConfig.js';
 import { router as apiRouter } from './router.js';
 import webRouter from './webRouter.js';
-import isAuthenticated from './src/middleware/isAuthenticated.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -89,7 +88,7 @@ app.use(passport.session());
 // Flash Messages Middleware
 app.use(flash());
 
-// Custom Middleware to make data available to all views
+// Middleware to make data available to all views
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.success_msg = req.flash('success');
@@ -140,7 +139,7 @@ app.use((err, req, res, next) => {
     });
   }
 
-  // For Web (EJS) routes, render an error page
+  // For Web (EJS) routes, render an error page - left developer mode for now
   res.status(statusCode).render('error', {
     error: {
       message: message,

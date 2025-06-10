@@ -71,3 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+//To show the delete confirmation box (CSP was blocking it)
+
+const deleteForms = document.querySelectorAll('.delete-form');
+
+deleteForms.forEach((form) => {
+  form.addEventListener('submit', function (event) {
+    const isConfirmed = confirm('Are you sure you want to delete this note?');
+
+    if (!isConfirmed) {
+      event.preventDefault();
+    }
+  });
+});
